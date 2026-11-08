@@ -34,7 +34,7 @@ correction); it is research software and has not been audited.
 | Backtest ignores execution costs | Fills happen on the **next block's real pool reserves**, with the pool's LP fee, extra adverse slippage, gas **and the OP-stack L1 data fee** |
 | Tuned until it passes | **Gates are written before any result is seen** ([docs/METHODOLOGY.md](docs/METHODOLOGY.md)); amendments are logged with the reason |
 | Look-ahead bias | Candles are emitted only after a later-minute block exists; signals use closed candles; tests assert future data cannot change past values |
-| One lucky window | Each new idea runs **once** on a window nobody has tuned on; bootstrap confidence intervals **clustered by day**; the confidence level tightens as hypotheses accumulate (95% → 97.5% → 99.67%) |
+| One lucky window | Each new idea runs **once** on a window nobody has tuned on; bootstrap confidence intervals (**clustered by day** in the 15-minute study); the confidence level tightens as hypotheses accumulate (95% → 97.5% → 99.67%) |
 | "Is this token a honeypot?" | Fail-closed validator: a state-override `eth_call` simulates buy → transfer → sell and measures tax; plus LP-lock, owner/timelock, proxy and exact holder-concentration checks |
 | "What happens when the network misbehaves?" | A state machine freezes on latency spikes, WebSocket gaps, bus overflow, reorgs or unexpected slippage, and revokes allowances |
 
@@ -56,7 +56,7 @@ correction); it is research software and has not been audited.
 
 Every stage has a hypothesis, a data window, a cost model, a minimum sample size and gates fixed **before the first run**; a failed idea is a new hypothesis on new data, never a re-tune.
 Time-ordered splits (in-sample / out-of-sample, or discovery / validation / holdout), robustness gates (5-minute delay, fees ×1.5, removing the top trades,
-a 50% priority-fee bid), and a rule that "insufficient data" is never a pass. Details: [docs/METHODOLOGY.md](docs/METHODOLOGY.md).
+a 50% priority-fee bid), and a rule that "insufficient data" is never a pass. Details: [docs/METHODOLOGY.md](docs/METHODOLOGY.md). Every design choice, with the alternative that was rejected and its cost, is in [docs/DECISIONS.md](docs/DECISIONS.md); how the project was actually built, including the use of an AI pair-programmer, is in [docs/BUILD-LOG.md](docs/BUILD-LOG.md).
 
 ## The scientific verdict
 
@@ -165,7 +165,7 @@ python scripts/fork_test.py
 baselab/            the library (ingestion, security, quant, risk, execution, backtest, research)
 scripts/            data collection, backtests, gates, fork test, funding-carry measurement
 tests/              55 offline tests (math, state machine, router, replay, arbitrage, swing)
-docs/               methodology, results, generated SVG graphics, Greek working notes (original pre-registration log)
+docs/               methodology, results, DECISIONS (what was chosen and rejected), BUILD-LOG (honest timeline), SVG graphics, Greek working notes (original pre-registration log)
 ```
 
 ## Limitations (read before trusting any number)

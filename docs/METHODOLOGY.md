@@ -27,7 +27,7 @@ Amendments are allowed only *before* real results exist and are logged with the 
 
 - **Time split**, never random: in-sample first 60%, out-of-sample last 40% (or discovery / validation / holdout 50/25/25 for variant searches).
 - **Fresh windows**: each new idea runs on a window that no earlier idea has been tuned on.
-- **Clustered bootstrap**: trades on the same day are correlated (tokens move together), so confidence intervals resample whole days.
+- **Clustered bootstrap** (used in the 15-minute study; earlier stages used a plain bootstrap over trades): trades on the same day are correlated because tokens move together, so intervals resample whole days.
 - **Multiple testing**: the confidence level tightens as hypotheses accumulate (95% → 97.5% → 99.67%).
 - **Robustness gates**: the result must survive a 5-minute execution delay, fees × 1.5, removal of the three best trades, and a 50% priority-fee bid where relevant.
 - **Concentration check**: no single pool may supply most of the profit.

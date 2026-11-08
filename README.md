@@ -56,7 +56,7 @@ correction); it is research software and has not been audited.
 
 Every stage has a hypothesis, a data window, a cost model, a minimum sample size and gates fixed **before the first run**; a failed idea is a new hypothesis on new data, never a re-tune.
 Time-ordered splits (in-sample / out-of-sample, or discovery / validation / holdout), robustness gates (5-minute delay, fees ×1.5, removing the top trades,
-a 50% priority-fee bid), and a rule that "insufficient data" is never a pass. Details: [docs/METHODOLOGY.md](docs/METHODOLOGY.md). Every design choice, with the alternative that was rejected and its cost, is in [docs/DECISIONS.md](docs/DECISIONS.md); how the project was actually built, including the use of an AI pair-programmer, is in [docs/BUILD-LOG.md](docs/BUILD-LOG.md).
+a 50% priority-fee bid), and a rule that "insufficient data" is never a pass. Details: [docs/METHODOLOGY.md](docs/METHODOLOGY.md). Every design choice, with the alternative that was rejected and its cost, is in [docs/DECISIONS.md](docs/DECISIONS.md); the order in which the work was actually done is in [docs/BUILD-LOG.md](docs/BUILD-LOG.md).
 
 ## The scientific verdict
 

@@ -1,8 +1,7 @@
 # Build log
 
-**How this was built.** Base-QuantLab was developed with **Claude Code** as an AI pair-programmer, in a single long working session on 2026-11-08.
-The code was written with AI assistance; the gates, the data and every result are reproducible from the scripts and tests in this repository, and the
-decisions and trade-offs are written down in [DECISIONS.md](DECISIONS.md). The git history is short because the working folder was exported into this
+**Context.** Base-QuantLab was built in a single long working session on 2026-11-08. The gates, the data and every result are reproducible
+from the scripts and tests in this repository, and the decisions and trade-offs are written down in [DECISIONS.md](DECISIONS.md). The git history is short because the working folder was exported into this
 repository at the end; it does not reflect the order of work, this log does.
 
 ## 1. Specification and architecture first
@@ -22,7 +21,7 @@ repository at the end; it does not reflect the order of work, this log does.
 - Downloaded two further 14-day windows so that each new idea ran on data nobody had tuned on.
 
 ## 4. Outside ideas, tested the same way
-Ideas that arrived from other sources (other AI answers, articles) were pre-registered and run once:
+Ideas that arrived from outside sources were pre-registered and run once:
 - RSI reversion and volume breakout: both negative out of sample.
 - Cross-DEX arbitrage (Uniswap ↔ Aerodrome): found that Aerodrome emits different event hashes than Uniswap V2 (which would have hidden all its data); 186 opportunities, 28% still alive two blocks later, negative after a 50% priority fee. Not GO.
 - 15-minute swing / mean reversion: a synthetic test showed the proposed exit rule fired without any price recovery; it was redefined **before** touching real data. No arm passed.

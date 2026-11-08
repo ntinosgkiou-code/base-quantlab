@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "base-strategy-lab"
+version = "0.1.0"
+description = "Pre-registered testing and execution infrastructure for on-chain trading strategies on Base"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = ["web3>=7,<8", "numpy>=1.26", "aiohttp>=3.9"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+baselab = "baselab.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["baselab*"]
+
+[tool.setuptools.package-data]
+baselab = ["security/simulator.bin", "security/*.sol"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

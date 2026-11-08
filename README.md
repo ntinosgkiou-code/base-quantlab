@@ -109,6 +109,23 @@ Writing a hostile evaluation harness exposed real defects. A sample:
 7. Aerodrome pools emit different `Swap`/`Sync` event hashes than Uniswap V2. Treated as identical, the arbitrage test would have seen no Aerodrome data and falsely concluded "no opportunities".
 8. A variable-shadowing bug in the replay (caught by tests), and an exit rule in a proposed swing spec that fired without any price recovery (caught by a synthetic test before touching real data).
 
+## Check the claims yourself
+
+Don't trust this page; each claim has a test or a script you can run.
+
+| Claim | Where it is checked |
+|-------|---------------------|
+| A candle is never emitted before its minute closes (no look-ahead) | `tests/test_pipeline.py::test_candle_not_emitted_before_minute_closes` |
+| Reorgs rebuild the affected candles; a reorg that is too deep freezes the system | `test_reorg_rebuilds_candles`, `test_deep_reorg_raises` |
+| Blocks missed during a reconnect are backfilled | `test_reconnect_gap_is_backfilled` |
+| Honeypot and tax detection, fail-closed validator | `tests/test_math.py::test_round_trip_tax_and_honeypot`; end to end on a fork with fake ETH: `scripts/fork_test.py` (13 checks) |
+| Hurst separates trending from mean-reverting series and fails closed on flat data | `tests/test_math.py::test_hurst_separates_regimes`, `test_hurst_fails_closed_on_flat_or_short` |
+| Arbitrage closed form equals brute force; a late attempt reverts and still pays gas | `tests/test_arb.py::test_closed_form_matches_brute_force_and_pool_math`, `test_delay_closes_the_gap_and_reverts_cost_gas` |
+| z-scores use no future data; the day-clustered bootstrap is wider than a naive one | `tests/test_swing.py::test_zscore_has_no_lookahead`, `test_cluster_bootstrap_wider_than_naive_when_days_are_correlated` |
+| Circuit breaker, daily-loss sleep and slippage halt behave as specified | `tests/test_pipeline.py::test_circuit_breaker_two_losses_halts_and_flattens`, `test_daily_loss_puts_system_to_sleep`, `test_slippage_over_3pct_halts` |
+| Gates are re-checked at the moment of use and the allowance ends at 0 | `test_entry_toctou_gates_and_ephemeral_allowance` |
+| P&L includes every gas payment (entry and exit) | `test_round_trip_pnl_includes_all_gas` |
+
 ## Quickstart
 
 ```bash
@@ -157,6 +174,9 @@ docs/               methodology, results, generated SVG graphics, Greek working 
 - **V3 / Slipstream pools use the active-range virtual reserves** from each swap event: exact inside the range, an approximation outside it.
 - **Arbitrage assumes no competitors** and uses end-of-block states; sequencer ordering and priority-fee auctions cannot be reconstructed from logs. The data covers only about 3 days of 0.2 s blocks, so the arbitrage evidence is thin.
 - **Funding carry** excludes counterparty risk (for example the 2026-10-29 Binance hack), liquidation risk on the short leg, and taxes.
+- **No nonce manager in the live sender.** `LiveSender` reads the pending nonce per intent without a lock, so two concurrent live intents (for example an entry and an exit) could collide. Only one live intent at a time is safe; this path was never run concurrently.
+- **The 150 ms latency gate comes from the original spec.** From a home connection to a free public RPC the measured round trip was 60–215 ms, so the system froze intermittently (and re-armed after 5 s of healthy samples). It is configurable with `--max-rtt-ms`.
+- **The 2-block delay in the arbitrage model is an assumption** about a fast home connection; a real one can be worse, which would only strengthen the NO-GO. Flashbots-style bundle relays are an Ethereum L1 mechanism: on Base the code sends to an RPC/sequencer endpoint and relies on pre-send simulation.
 - **Live mode has never traded real funds.** It was exercised on a local fork and in short paper sessions. It is research code and has not been audited.
 - Free public RPCs impose limits (log ranges, rate limits); the collectors retry and resume, but they are not a production data pipeline.
 

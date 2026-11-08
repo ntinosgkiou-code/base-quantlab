@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "base-strategy-lab"
+name = "base-quantlab"
 version = "0.1.0"
 description = "Pre-registered testing and execution infrastructure for on-chain trading strategies on Base"
 readme = "README.md"

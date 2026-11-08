@@ -32,13 +32,13 @@ def banner() -> str:
         f'<line x1="{a}" y1="{b - 18}" x2="{a}" y2="{b + 22}" stroke="{"#34d399" if i % 2 == 0 else "#f87171"}" stroke-width="2" stroke-opacity="0.85"/>'
         f'<rect x="{a - 6}" y="{b - 8}" width="12" height="20" rx="2" fill="{"#34d399" if i % 2 == 0 else "#f87171"}" fill-opacity="0.85"/>'
         for i, (a, b) in enumerate(pts))
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 320" width="1280" height="320" role="img" aria-label="base-strategy-lab">
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 320" width="1280" height="320" role="img" aria-label="Base-QuantLab">
 <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#16294d"/></linearGradient></defs>
 <rect width="1280" height="320" rx="18" fill="url(#bg)"/>
 <polyline points="{line}" fill="none" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.5"/>{candles}
 <text x="64" y="84" font-family="{MONO}" font-size="14" fill="#60a5fa" letter-spacing="2">BASE · UNISWAP · AERODROME</text>
-<text x="64" y="138" font-family="{FONT}" font-size="54" font-weight="800" fill="#ffffff">base-strategy-lab</text>
-<text x="64" y="176" font-family="{FONT}" font-size="21" fill="#c7d6ee">Pre-registered testing and execution infrastructure for on-chain trading strategies.</text>
+<text x="64" y="138" font-family="{FONT}" font-size="54" font-weight="800" fill="#ffffff">Base-QuantLab</text>
+<text x="64" y="176" font-family="{FONT}" font-size="21" fill="#c7d6ee">An on-chain quant lab and simulation framework for Base L2.</text>
 {"".join(parts)}
 </svg>'''
 

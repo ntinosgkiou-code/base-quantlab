@@ -1,4 +1,4 @@
-# base-strategy-lab — Architecture Blueprint (v1)
+# Base-QuantLab — Architecture Blueprint (v1)
 
 > Σύνοψη στα ελληνικά: πρώτα η αρχιτεκτονική, μετά ο κώδικας. 5 layers, πλήρως αποσυνδεδεμένα μέσω
 > event bus + κεντρικού state machine. Default mode = **paper / backtest**. Live απαιτεί ρητό flag
